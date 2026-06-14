@@ -461,11 +461,11 @@ def check_dependency(name: str, app_dir: Path) -> bool:
     if name == 'ffmpeg':
         exe_name = "ffmpeg.exe" if os_type == 'windows' else "ffmpeg"
         path = app_dir / "ffmpeg" / exe_name
-        return path.exists()
-    
+        return path.exists() or shutil.which("ffmpeg") is not None
+
     elif name == 'deno':
         exe_name = "deno.exe" if os_type == 'windows' else "deno"
         path = app_dir / "bin" / exe_name
-        return path.exists()
-    
+        return path.exists() or shutil.which("deno") is not None
+
     return False
