@@ -6,6 +6,7 @@ import customtkinter as ctk
 import threading
 import json
 import os
+os.environ["PATH"] = "/opt/homebrew/bin:" + os.path.expanduser("~/.deno/bin") + ":" + os.environ.get("PATH", "")
 import sys
 import subprocess
 import re
