@@ -250,9 +250,9 @@ class SessionBrowserPage(ctk.CTkFrame):
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/kingarthurborges/shortslab")
+        webbrowser.open("https://github.com/thekinglab/shortslab")
     
     def open_discord(self):
         """Open Discord server"""
         import webbrowser
-        webbrowser.open("https://github.com/kingarthurborges/shortslab")
+        webbrowser.open("https://github.com/thekinglab/shortslab")

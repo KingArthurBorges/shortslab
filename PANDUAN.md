@@ -203,4 +203,4 @@ Hasil clips akan tersimpan di folder `output/` dalam folder aplikasi.
 ## ❓ Butuh Bantuan?
 
 - 🔑 [Dapatkan API Key AI di sini](https://platform.openai.com/api-keys)
-- 💬 Gabung [GitHub Discussions](https://github.com/kingarthurborges/shortslab/discussions) untuk tanya jawab, laporan bug, dan diskusi dengan pengguna lain
+- 💬 Gabung [GitHub Discussions](https://github.com/thekinglab/shortslab/discussions) untuk tanya jawab, laporan bug, dan diskusi dengan pengguna lain

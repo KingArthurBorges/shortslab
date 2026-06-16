@@ -119,7 +119,7 @@ Then add to GitHub:
 
 ### Step 1: Fork Repository
 
-1. Go to repo page: `https://github.com/kingarthurborges/shortslab`
+1. Go to repo page: `https://github.com/thekinglab/shortslab`
 2. Click the **"Fork"** button in the top right
 3. Select your account as destination
 4. Wait for fork process to complete
@@ -136,15 +136,15 @@ git clone https://github.com/YOUR-USERNAME/shortslab.git
 cd shortslab
 
 # Add "upstream" remote (original repo)
-git remote add upstream https://github.com/kingarthurborges/shortslab.git
+git remote add upstream https://github.com/thekinglab/shortslab.git
 
 # Verify remotes
 git remote -v
 # Output:
 # origin    https://github.com/YOUR-USERNAME/shortslab.git (fetch)
 # origin    https://github.com/YOUR-USERNAME/shortslab.git (push)
-# upstream  https://github.com/kingarthurborges/shortslab.git (fetch)
-# upstream  https://github.com/kingarthurborges/shortslab.git (push)
+# upstream  https://github.com/thekinglab/shortslab.git (fetch)
+# upstream  https://github.com/thekinglab/shortslab.git (push)
 ```
 
 ### Step 3: Sync with Upstream (Important!)

@@ -1,6 +1,6 @@
 # ShortsLab
 
-[![GitHub Stars](https://img.shields.io/github/stars/kingarthurborges/shortslab?style=social)](https://github.com/kingarthurborges/shortslab)
+[![GitHub Stars](https://img.shields.io/github/stars/thekinglab/shortslab?style=social)](https://github.com/thekinglab/shortslab)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS-lightgrey)]()
 
@@ -18,8 +18,8 @@ Download the desktop app for your platform:
 
 | Platform | Download | Notes |
 |----------|----------|-------|
-| **Windows** | [Latest Release (.exe)](https://github.com/kingarthurborges/shortslab/releases) | Windows 10+ |
-| **macOS** | [Latest Release (.dmg)](https://github.com/kingarthurborges/shortslab/releases) | macOS Catalina+, Apple Silicon & Intel |
+| **Windows** | [Latest Release (.exe)](https://github.com/thekinglab/shortslab/releases) | Windows 10+ |
+| **macOS** | [Latest Release (.dmg)](https://github.com/thekinglab/shortslab/releases) | macOS Catalina+, Apple Silicon & Intel |
 
 Then follow the complete setup guide:
 
@@ -151,7 +151,7 @@ See [GUIDE.md](GUIDE.md) or [PANDUAN.md](PANDUAN.md) for detailed API setup inst
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/kingarthurborges/shortslab.git
+git clone https://github.com/thekinglab/shortslab.git
 cd shortslab
 ```
 
@@ -455,7 +455,7 @@ git clone https://github.com/YOUR-USERNAME/shortslab.git
 cd shortslab
 
 # 3. Add upstream remote
-git remote add upstream https://github.com/kingarthurborges/shortslab.git
+git remote add upstream https://github.com/thekinglab/shortslab.git
 
 # 4. Create a new branch
 git checkout -b feature/your-new-feature
@@ -507,11 +507,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Credits
 
-Made with ☕ by **Aji Prakoso** for content creators
+Made with ☕ by **thekinglab** for content creators
 
 | | |
 |---|---|
-| 🎓 | [n8n & Automation eCourse](https://classroom.kingarthurborges.com) |
-| 📸 | [@kingarthurborges on Instagram](https://instagram.com/kingarthurborges) |
-| 🎬 | [Aji Prakoso on YouTube](https://youtube.com/@kingarthurborges) |
-| 🌐 | [About Aji Prakoso](https://www.kingarthurborges.com) |
+| 🎓 | [n8n & Automation eCourse](https://classroom.thekinglab.com) |
+| 📸 | [@thekinglab on Instagram](https://instagram.com/thekinglab) |
+| 🎬 | [thekinglab on YouTube](https://youtube.com/@thekinglab) |
+| 🌐 | [About thekinglab](https://www.thekinglab.com) |

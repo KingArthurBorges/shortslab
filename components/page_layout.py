@@ -162,9 +162,9 @@ class PageFooter(ctk.CTkFrame):
         try:
             from version import __version__
             current_year = datetime.now().year
-            copyright_text = f"© {current_year} ShortsLab • v{__version__}"
+            copyright_text = f"© {current_year} ShortsLab by thekinglab • v{__version__}"
         except:
-            copyright_text = "© 2026 ShortsLab"
+            copyright_text = "© 2026 ShortsLab by thekinglab"
         
         ctk.CTkLabel(footer_content, text=copyright_text, 
             font=ctk.CTkFont(size=10), text_color="gray", anchor="w").pack(side="left")

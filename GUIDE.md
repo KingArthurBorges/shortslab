@@ -202,4 +202,4 @@ The resulting clips will be saved in the `output/` folder inside the app folder.
 ## ❓ Need Help?
 
 - 🔑 [Get AI API Key here](https://platform.openai.com/api-keys)
-- 💬 Join [GitHub Discussions](https://github.com/kingarthurborges/shortslab/discussions) for Q&A, bug reports, and discussions with other users
+- 💬 Join [GitHub Discussions](https://github.com/thekinglab/shortslab/discussions) for Q&A, bug reports, and discussions with other users

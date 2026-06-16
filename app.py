@@ -424,7 +424,7 @@ class YTShortClipperApp(ctk.CTk):
             fg_color=("#8B5CF6", "#7C3AED"),
             hover_color=("#7C3AED", "#6D28D9"),
             command=lambda: [
-                webbrowser.open("https://github.com/kingarthurborges/shortslab/blob/master/GUIDE.md#3-setup-youtube-cookies"),
+                webbrowser.open("https://github.com/thekinglab/shortslab/blob/master/GUIDE.md#3-setup-youtube-cookies"),
                 dialog.destroy()
             ])
         english_btn.pack(side="left", padx=5)
@@ -438,7 +438,7 @@ class YTShortClipperApp(ctk.CTk):
             fg_color=("#8B5CF6", "#7C3AED"),
             hover_color=("#7C3AED", "#6D28D9"),
             command=lambda: [
-                webbrowser.open("https://github.com/kingarthurborges/shortslab/blob/master/PANDUAN.md#3-setup-cookies-youtube"),
+                webbrowser.open("https://github.com/thekinglab/shortslab/blob/master/PANDUAN.md#3-setup-cookies-youtube"),
                 dialog.destroy()
             ])
         indonesian_btn.pack(side="left", padx=5)

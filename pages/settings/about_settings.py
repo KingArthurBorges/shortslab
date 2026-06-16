@@ -56,7 +56,7 @@ and YouTube Shorts."""
         
         ctk.CTkLabel(credits_frame, text="Made with coffee by", 
             font=ctk.CTkFont(size=11), text_color="gray").pack()
-        ctk.CTkLabel(credits_frame, text="Aji Prakoso", 
+        ctk.CTkLabel(credits_frame, text="thekinglab", 
             font=ctk.CTkFont(size=13, weight="bold")).pack(pady=(5, 0))
         
         # Links
@@ -65,15 +65,15 @@ and YouTube Shorts."""
         
         ctk.CTkButton(links_frame, text="GitHub Repository", height=40,
             fg_color=("#24292e", "#0d1117"), hover_color=("#2c3136", "#161b22"),
-            command=lambda: webbrowser.open("https://github.com/kingarthurborges/shortslab")).pack(fill="x", pady=2)
+            command=lambda: webbrowser.open("https://github.com/thekinglab/shortslab")).pack(fill="x", pady=2)
         
-        ctk.CTkButton(links_frame, text="@kingarthurborges on Instagram", height=40,
+        ctk.CTkButton(links_frame, text="@thekinglab on Instagram", height=40,
             fg_color=("#E4405F", "#C13584"), hover_color=("#F56040", "#E1306C"),
-            command=lambda: webbrowser.open("https://instagram.com/kingarthurborges")).pack(fill="x", pady=2)
+            command=lambda: webbrowser.open("https://instagram.com/thekinglab")).pack(fill="x", pady=2)
         
         ctk.CTkButton(links_frame, text="YouTube Channel", height=40,
             fg_color=("#c4302b", "#FF0000"), hover_color=("#ff0000", "#CC0000"),
-            command=lambda: webbrowser.open("https://youtube.com/@kingarthurborges")).pack(fill="x", pady=2)
+            command=lambda: webbrowser.open("https://youtube.com/@thekinglab")).pack(fill="x", pady=2)
         
         # Footer
         footer_frame = ctk.CTkFrame(self.content, fg_color="transparent")

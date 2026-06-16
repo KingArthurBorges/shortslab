@@ -272,12 +272,12 @@ class APIStatusPage(ctk.CTkFrame):
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/kingarthurborges/shortslab")
+        webbrowser.open("https://github.com/thekinglab/shortslab")
     
     def open_discord(self):
         """Open Discord server invite link"""
         import webbrowser
-        webbrowser.open("https://github.com/kingarthurborges/shortslab")
+        webbrowser.open("https://github.com/thekinglab/shortslab")
     
     def show_page(self, page_name):
         """Delegate to parent app's show_page method"""
@@ -727,12 +727,12 @@ class LibStatusPage(ctk.CTkFrame):
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/kingarthurborges/shortslab")
+        webbrowser.open("https://github.com/thekinglab/shortslab")
     
     def open_discord(self):
         """Open Discord server invite link"""
         import webbrowser
-        webbrowser.open("https://github.com/kingarthurborges/shortslab")
+        webbrowser.open("https://github.com/thekinglab/shortslab")
     
     def show_page(self, page_name):
         """Delegate to parent app's show_page method"""
