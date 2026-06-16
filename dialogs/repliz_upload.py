@@ -652,10 +652,17 @@ Return JSON format:
             file_size_mb = file_size / (1024 * 1024)
             print(f"Uploading video: {file_size_mb:.2f} MB")
             
-            # Step 1: Request pre-signed URL from N8N
+            # Step 1: Request pre-signed URL from the configured file-host backend.
+            # Set UPLOAD_PRESIGN_URL in version.py to your own endpoint to enable
+            # one-click Repliz uploads; left empty, this feature is disabled.
+            from version import UPLOAD_PRESIGN_URL
+            if not UPLOAD_PRESIGN_URL:
+                print("Upload backend (UPLOAD_PRESIGN_URL) is not configured.")
+                return None
+
             filename = f"{uuid.uuid4()}.mp4"
-            presigned_url_endpoint = "https://api.ytclip.org/webhook/yt-clipper/presigned-url"
-            
+            presigned_url_endpoint = UPLOAD_PRESIGN_URL
+
             print("Requesting pre-signed URL...")
             response = requests.post(
                 presigned_url_endpoint,

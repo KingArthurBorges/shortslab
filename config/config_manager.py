@@ -1,5 +1,5 @@
 """
-Configuration manager for YT Short Clipper
+Configuration manager for ShortsLab
 """
 
 import json

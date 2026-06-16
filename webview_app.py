@@ -43,7 +43,7 @@ class WebAPI:
 
     def get_provider_type(self):
         cfg = self._get_cfg()
-        return {"provider_type": cfg.get("provider_type", "ytclip")}
+        return {"provider_type": cfg.get("provider_type", "openai")}
 
     def validate_api_key(self, base_url, api_key):
         if not base_url:
@@ -184,7 +184,7 @@ def main():
     app_dir = get_app_dir()
     bundle_dir = get_bundle_dir()
     html_path = Path(bundle_dir) / "web" / "index.html"
-    window = webview.create_window("YT Short Clipper", str(html_path), js_api=api)
+    window = webview.create_window("ShortsLab", str(html_path), js_api=api)
     webview.start()
 
 

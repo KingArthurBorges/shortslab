@@ -1,5 +1,5 @@
 """
-Settings page for YT Short Clipper - Card-based layout with sub-pages
+Settings page for ShortsLab - Card-based layout with sub-pages
 """
 
 import customtkinter as ctk
@@ -175,12 +175,12 @@ class SettingsPage(ctk.CTkFrame):
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/jipraks/yt-short-clipper")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def open_discord(self):
         """Open Discord server"""
         import webbrowser
-        webbrowser.open("https://s.id/ytsdiscord")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def show_page(self, page_name):
         """Delegate to parent app's show_page method"""

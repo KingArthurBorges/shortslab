@@ -1,4 +1,4 @@
-# Contributing to YT-Short-Clipper
+# Contributing to ShortsLab
 
 Thank you for your interest in contributing! 🎉
 
@@ -119,32 +119,32 @@ Then add to GitHub:
 
 ### Step 1: Fork Repository
 
-1. Go to repo page: `https://github.com/jipraks/yt-short-clipper`
+1. Go to repo page: `https://github.com/kingarthurborges/shortslab`
 2. Click the **"Fork"** button in the top right
 3. Select your account as destination
 4. Wait for fork process to complete
 
-Now you have a copy at `https://github.com/YOUR-USERNAME/yt-short-clipper`
+Now you have a copy at `https://github.com/YOUR-USERNAME/shortslab`
 
 ### Step 2: Clone to Local Computer
 
 ```bash
 # Clone YOUR fork (not the original repo!)
-git clone https://github.com/YOUR-USERNAME/yt-short-clipper.git
+git clone https://github.com/YOUR-USERNAME/shortslab.git
 
 # Enter project folder
-cd yt-short-clipper
+cd shortslab
 
 # Add "upstream" remote (original repo)
-git remote add upstream https://github.com/jipraks/yt-short-clipper.git
+git remote add upstream https://github.com/kingarthurborges/shortslab.git
 
 # Verify remotes
 git remote -v
 # Output:
-# origin    https://github.com/YOUR-USERNAME/yt-short-clipper.git (fetch)
-# origin    https://github.com/YOUR-USERNAME/yt-short-clipper.git (push)
-# upstream  https://github.com/jipraks/yt-short-clipper.git (fetch)
-# upstream  https://github.com/jipraks/yt-short-clipper.git (push)
+# origin    https://github.com/YOUR-USERNAME/shortslab.git (fetch)
+# origin    https://github.com/YOUR-USERNAME/shortslab.git (push)
+# upstream  https://github.com/kingarthurborges/shortslab.git (fetch)
+# upstream  https://github.com/kingarthurborges/shortslab.git (push)
 ```
 
 ### Step 3: Sync with Upstream (Important!)

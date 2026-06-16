@@ -1,5 +1,5 @@
 """
-Pages package for YT Short Clipper
+Pages package for ShortsLab
 """
 
 from .settings_page import SettingsPage

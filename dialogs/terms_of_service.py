@@ -1,5 +1,5 @@
 """
-Terms of Service Dialog for YT Short Clipper
+Terms of Service Dialog for ShortsLab
 Shows bilingual (English + Indonesian) terms that users must accept before using the app.
 """
 
@@ -12,15 +12,15 @@ from tkinter import font as tkfont
 # ============================================================
 
 TERMS_EN = """TERMS OF SERVICE & DISCLAIMER
-YT Short Clipper
+ShortsLab
 
 Last Updated: February 2026
 
-By using YT Short Clipper ("the Software"), you acknowledge that you have read, understood, and agree to be bound by the following terms and conditions. If you do not agree, you must immediately stop using the Software.
+By using ShortsLab ("the Software"), you acknowledge that you have read, understood, and agree to be bound by the following terms and conditions. If you do not agree, you must immediately stop using the Software.
 
 1. NATURE OF THE SOFTWARE
 
-YT Short Clipper is an open-source tool designed to assist users in creating short-form video clips from YouTube content. The Software is provided "AS IS" and "AS AVAILABLE" without warranties of any kind, either express or implied.
+ShortsLab is an open-source tool designed to assist users in creating short-form video clips from YouTube content. The Software is provided "AS IS" and "AS AVAILABLE" without warranties of any kind, either express or implied.
 
 2. USER RESPONSIBILITY & COPYRIGHT COMPLIANCE
 
@@ -34,7 +34,7 @@ YT Short Clipper is an open-source tool designed to assist users in creating sho
 
 3. DISCLAIMER OF LIABILITY
 
-3.1. The developer(s) and contributor(s) of YT Short Clipper ("the Developers") shall NOT be held liable for any direct, indirect, incidental, special, consequential, or exemplary damages arising from or related to your use of the Software, including but not limited to:
+3.1. The developer(s) and contributor(s) of ShortsLab ("the Developers") shall NOT be held liable for any direct, indirect, incidental, special, consequential, or exemplary damages arising from or related to your use of the Software, including but not limited to:
    a) Copyright infringement claims or lawsuits;
    b) Violations of YouTube's Terms of Service;
    c) Violations of any platform's terms of service;
@@ -82,15 +82,15 @@ By clicking "I Agree" or by using the Software, you confirm that:
 
 
 TERMS_ID = """SYARAT DAN KETENTUAN PENGGUNAAN & PENYANGKALAN
-YT Short Clipper
+ShortsLab
 
 Terakhir Diperbarui: Februari 2026
 
-Dengan menggunakan YT Short Clipper ("Perangkat Lunak"), Anda mengakui bahwa Anda telah membaca, memahami, dan setuju untuk terikat oleh syarat dan ketentuan berikut. Jika Anda tidak setuju, Anda harus segera berhenti menggunakan Perangkat Lunak ini.
+Dengan menggunakan ShortsLab ("Perangkat Lunak"), Anda mengakui bahwa Anda telah membaca, memahami, dan setuju untuk terikat oleh syarat dan ketentuan berikut. Jika Anda tidak setuju, Anda harus segera berhenti menggunakan Perangkat Lunak ini.
 
 1. SIFAT PERANGKAT LUNAK
 
-YT Short Clipper adalah alat open-source yang dirancang untuk membantu pengguna membuat klip video pendek dari konten YouTube. Perangkat Lunak ini disediakan "APA ADANYA" dan "SEBAGAIMANA TERSEDIA" tanpa jaminan dalam bentuk apa pun, baik tersurat maupun tersirat.
+ShortsLab adalah alat open-source yang dirancang untuk membantu pengguna membuat klip video pendek dari konten YouTube. Perangkat Lunak ini disediakan "APA ADANYA" dan "SEBAGAIMANA TERSEDIA" tanpa jaminan dalam bentuk apa pun, baik tersurat maupun tersirat.
 
 2. TANGGUNG JAWAB PENGGUNA & KEPATUHAN HAK CIPTA
 
@@ -104,7 +104,7 @@ YT Short Clipper adalah alat open-source yang dirancang untuk membantu pengguna 
 
 3. PENYANGKALAN TANGGUNG JAWAB
 
-3.1. Pengembang dan kontributor YT Short Clipper ("Pengembang") TIDAK bertanggung jawab atas segala kerugian langsung, tidak langsung, insidental, khusus, konsekuensial, atau sebagai contoh yang timbul dari atau terkait dengan penggunaan Perangkat Lunak oleh Anda, termasuk namun tidak terbatas pada:
+3.1. Pengembang dan kontributor ShortsLab ("Pengembang") TIDAK bertanggung jawab atas segala kerugian langsung, tidak langsung, insidental, khusus, konsekuensial, atau sebagai contoh yang timbul dari atau terkait dengan penggunaan Perangkat Lunak oleh Anda, termasuk namun tidak terbatas pada:
    a) Klaim atau tuntutan pelanggaran hak cipta;
    b) Pelanggaran Ketentuan Layanan YouTube;
    c) Pelanggaran ketentuan layanan platform mana pun;

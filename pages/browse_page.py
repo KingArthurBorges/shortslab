@@ -74,7 +74,7 @@ class BrowsePage(ctk.CTkFrame):
         
         tagline_col = ctk.CTkFrame(right_header, fg_color="transparent")
         tagline_col.pack(side="left")
-        ctk.CTkLabel(tagline_col, text="YT Short Clipper", font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w")
+        ctk.CTkLabel(tagline_col, text="ShortsLab", font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w")
         ctk.CTkLabel(tagline_col, text="Turn long YouTube videos into viral shorts — Powered by AI", 
             font=ctk.CTkFont(size=9), text_color="gray").pack(anchor="w")
         
@@ -189,7 +189,7 @@ class BrowsePage(ctk.CTkFrame):
                     
                     # Play button
                     play_btn = ctk.CTkButton(btn_row, text="▶ Play Video", height=32,
-                        font=ctk.CTkFont(size=11), fg_color=("#3B8ED0", "#1F6AA5"),
+                        font=ctk.CTkFont(size=11), fg_color=("#8B5CF6", "#7C3AED"),
                         command=lambda v=master_file: self.play_video(v))
                     play_btn.pack(side="left", padx=(0, 5))
                     
@@ -327,12 +327,12 @@ class BrowsePage(ctk.CTkFrame):
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/jipraks/yt-short-clipper")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def open_discord(self):
         """Open Discord server"""
         import webbrowser
-        webbrowser.open("https://s.id/ytsdiscord")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def show_page(self, page_name: str):
         """Navigate to another page (not used in browse page, but kept for consistency)"""

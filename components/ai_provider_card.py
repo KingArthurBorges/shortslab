@@ -105,7 +105,7 @@ class AIProviderCard(ctk.CTkFrame):
         btn_frame.pack(fill="x", padx=15, pady=(0, 15))
         
         self.validate_btn = ctk.CTkButton(btn_frame, text="🔍 Validate", height=35,
-            fg_color=("#3B8ED0", "#1F6AA5"), command=self.validate_config)
+            fg_color=("#8B5CF6", "#7C3AED"), command=self.validate_config)
         self.validate_btn.pack(side="left", fill="x", expand=True, padx=(0, 5))
         
         self.apply_all_btn = ctk.CTkButton(btn_frame, text="📋 Apply URL & Key to All", height=35,

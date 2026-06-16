@@ -123,11 +123,18 @@ class ContactPage(ctk.CTkFrame):
         self.submit_btn.configure(state="disabled", text="Sending...")
         self.status_label.configure(text="Sending message...", text_color="gray")
         
+        # No contact backend configured for this build — fail gracefully
+        from version import CONTACT_WEBHOOK_URL
+        if not CONTACT_WEBHOOK_URL:
+            self.after(0, lambda: self.on_submit_error(
+                "Contact form is not configured for this build."))
+            return
+
         # Submit in background thread
         def submit():
             try:
                 installation_id = self.get_installation_id()
-                
+
                 # Prepare data
                 data = {
                     "installation_id": installation_id,
@@ -137,15 +144,15 @@ class ContactPage(ctk.CTkFrame):
                     "jenis": jenis,
                     "message": message
                 }
-                
+
                 # Send POST request
-                url = "https://api.ytclip.org/webhook/yt-clipper/contact-form"
+                url = CONTACT_WEBHOOK_URL
                 json_data = json.dumps(data).encode('utf-8')
                 
                 req = urllib.request.Request(url, data=json_data, 
                     headers={
                         'Content-Type': 'application/json',
-                        'User-Agent': 'YT-Short-Clipper'
+                        'User-Agent': 'ShortsLab'
                     },
                     method='POST')
                 

@@ -1,5 +1,5 @@
 """
-YT Short Clipper Desktop App
+ShortsLab Desktop App
 """
 
 import customtkinter as ctk
@@ -27,7 +27,6 @@ from config.config_manager import ConfigManager
 from dialogs.model_selector import SearchableModelDropdown
 from dialogs.youtube_upload import YouTubeUploadDialog
 from dialogs.terms_of_service import TermsOfServiceDialog
-from dialogs.autoklip_promo import AutoKlipPromoDialog
 from components.progress_step import ProgressStep
 from pages.settings_page import SettingsPage
 from pages.browse_page import BrowsePage
@@ -79,12 +78,16 @@ class YTShortClipperApp(ctk.CTk):
         # Session data for highlight selection flow
         self.session_data = None  # Will store result from find_highlights_only
         
-        self.title("YT Short Clipper")
+        self.title("ShortsLab")
         self.geometry("780x620")
         self.resizable(False, False)
-        
+
         ctk.set_appearance_mode("dark")
-        ctk.set_default_color_theme("blue")
+        try:
+            theme_path = BUNDLE_DIR / "assets" / "shortslab_theme.json"
+            ctk.set_default_color_theme(str(theme_path) if theme_path.exists() else "blue")
+        except Exception:
+            ctk.set_default_color_theme("blue")
         
         # Set app icon after window is created
         self.after(200, self.set_app_icon)
@@ -118,31 +121,14 @@ class YTShortClipperApp(ctk.CTk):
         # Show Terms of Service if not yet accepted
         if not self.config.get("tos_accepted", False):
             self.after(300, self._show_tos_dialog)
-        else:
-            # ToS already accepted in a previous session — show AutoKlip promo
-            # one time only.
-            self.after(500, self._maybe_show_autoklip_promo)
-    
+
     def _show_tos_dialog(self):
         """Show Terms of Service dialog and block app usage until accepted."""
         def on_accept():
             self.config.set("tos_accepted", True)
-            # Queue the AutoKlip promo right after ToS acceptance
-            self.after(400, self._maybe_show_autoklip_promo)
-        
+
         TermsOfServiceDialog(self, on_accept)
-    
-    def _maybe_show_autoklip_promo(self):
-        """Show AutoKlip promo modal exactly once per install."""
-        if self.config.get("autoklip_promo_shown", False):
-            return
-        try:
-            AutoKlipPromoDialog(self)
-        finally:
-            # Persist immediately so it never shows again, even if user
-            # closes the app without clicking the CTA.
-            self.config.set("autoklip_promo_shown", True)
-    
+
     def set_app_icon(self):
         """Set window icon"""
         try:
@@ -336,7 +322,7 @@ class YTShortClipperApp(ctk.CTk):
         self.start_btn.pack(fill="x", pady=(0, 5))
         
         sessions_link = ctk.CTkLabel(bottom_section, text="📋 Browse Sessions", 
-            font=ctk.CTkFont(size=10), text_color=("#3B8ED0", "#1F6AA5"), cursor="hand2")
+            font=ctk.CTkFont(size=10), text_color=("#8B5CF6", "#7C3AED"), cursor="hand2")
         sessions_link.pack()
         sessions_link.bind("<Button-1>", lambda e: self.show_page("session_browser"))
         
@@ -435,10 +421,10 @@ class YTShortClipperApp(ctk.CTk):
             width=140,
             height=35,
             font=ctk.CTkFont(size=12),
-            fg_color=("#3B8ED0", "#1F6AA5"),
-            hover_color=("#2E7AB8", "#16527D"),
+            fg_color=("#8B5CF6", "#7C3AED"),
+            hover_color=("#7C3AED", "#6D28D9"),
             command=lambda: [
-                webbrowser.open("https://github.com/jipraks/yt-short-clipper/blob/master/GUIDE.md#3-setup-youtube-cookies"),
+                webbrowser.open("https://github.com/kingarthurborges/shortslab/blob/master/GUIDE.md#3-setup-youtube-cookies"),
                 dialog.destroy()
             ])
         english_btn.pack(side="left", padx=5)
@@ -449,10 +435,10 @@ class YTShortClipperApp(ctk.CTk):
             width=140,
             height=35,
             font=ctk.CTkFont(size=12),
-            fg_color=("#3B8ED0", "#1F6AA5"),
-            hover_color=("#2E7AB8", "#16527D"),
+            fg_color=("#8B5CF6", "#7C3AED"),
+            hover_color=("#7C3AED", "#6D28D9"),
             command=lambda: [
-                webbrowser.open("https://github.com/jipraks/yt-short-clipper/blob/master/PANDUAN.md#3-setup-cookies-youtube"),
+                webbrowser.open("https://github.com/kingarthurborges/shortslab/blob/master/PANDUAN.md#3-setup-cookies-youtube"),
                 dialog.destroy()
             ])
         indonesian_btn.pack(side="left", padx=5)
@@ -1725,24 +1711,22 @@ class YTShortClipperApp(ctk.CTk):
         else:
             subprocess.run(["open" if sys.platform == "darwin" else "xdg-open", output_dir])
     
-    def open_discord(self):
-        """Open Discord server invite link"""
-        import webbrowser
-        webbrowser.open("https://s.id/ytsdiscord")
-    
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/jipraks/yt-short-clipper")
-    
+        from version import REPO_URL
+        webbrowser.open(REPO_URL)
+
     def check_update_silent(self):
         """Check for updates silently on startup"""
+        if not UPDATE_CHECK_URL:
+            return
         try:
             # Get installation_id from config
             installation_id = self.config.get("installation_id", "unknown")
             url = f"{UPDATE_CHECK_URL}?installation_id={installation_id}&app_version={__version__}"
-            
-            req = urllib.request.Request(url, headers={'User-Agent': 'YT-Short-Clipper'})
+
+            req = urllib.request.Request(url, headers={'User-Agent': 'ShortsLab'})
             with urllib.request.urlopen(req, timeout=5) as response:
                 data = json.loads(response.read().decode())
                 latest_version = data.get("version", "")
@@ -1757,12 +1741,15 @@ class YTShortClipperApp(ctk.CTk):
     
     def check_update_manual(self):
         """Check for updates manually from settings page"""
+        if not UPDATE_CHECK_URL:
+            messagebox.showinfo("Update Check", "Automatic update checks are not configured for this build.")
+            return
         try:
             # Get installation_id from config
             installation_id = self.config.get("installation_id", "unknown")
             url = f"{UPDATE_CHECK_URL}?installation_id={installation_id}&app_version={__version__}"
-            
-            req = urllib.request.Request(url, headers={'User-Agent': 'YT-Short-Clipper'})
+
+            req = urllib.request.Request(url, headers={'User-Agent': 'ShortsLab'})
             with urllib.request.urlopen(req, timeout=10) as response:
                 data = json.loads(response.read().decode())
                 latest_version = data.get("version", "")

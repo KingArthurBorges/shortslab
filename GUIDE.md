@@ -1,6 +1,6 @@
-# 📖 YT-Short-Clipper User Guide
+# 📖 ShortsLab User Guide
 
-Complete guide for using YT-Short-Clipper for beginners.
+Complete guide for using ShortsLab for beginners.
 
 ---
 
@@ -14,7 +14,7 @@ Complete guide for using YT-Short-Clipper for beginners.
   - [3.1 Install Browser Extension](#31-install-browser-extension)
   - [3.2 Export Cookies](#32-export-cookies)
   - [3.3 Upload Cookies to App](#33-upload-cookies-to-app)
-- [4. Create API Key on YT Clip AI (Recommended)](#4-create-api-key-on-yt-clip-ai-recommended)
+- [4. Create API Key on OpenAI (Recommended)](#4-create-api-key-on-yt-clip-ai-recommended)
   - [4.1 Login with Google](#41-login-with-google)
   - [4.2 Top Up Balance](#42-top-up-balance)
   - [4.3 Create API Key](#43-create-api-key)
@@ -32,7 +32,7 @@ Complete guide for using YT-Short-Clipper for beginners.
 
 ### 1.1 Download from GitHub
 
-1. Go to the YT-Short-Clipper GitHub page
+1. Go to the ShortsLab GitHub page
 2. Click **"Releases"** in the right sidebar
 
    ![GitHub Releases](assets/docs/01.github-releases.png)
@@ -108,48 +108,24 @@ Cookies are required so the app can access YouTube videos on your behalf.
 
 ---
 
-## 4. Create API Key on YT Clip AI (Recommended)
+## 4. Create an API Key (OpenAI Recommended)
 
-**YT Clip AI** is the recommended AI provider because it's more affordable and optimized for this app.
+**OpenAI** is the recommended AI provider, but the app supports 10+ providers
+(Google Gemini, Groq, Anthropic, and any OpenAI-compatible endpoint).
 
-### 4.1 Login with Google
+### 4.1 Create an OpenAI account
 
-1. Go to [https://ai.ytclip.org](https://ai.ytclip.org)
-2. Click **"Login with Google"** and select your Google account
+1. Go to [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+2. Sign up or log in.
+3. Add a payment method / credits under **Settings → Billing** (the API is pay-as-you-go).
 
-   ![YT Clip AI Login](assets/docs/15.ytclip-ai-login-google.png)
+### 4.2 Create the API Key
 
-### 4.2 Top Up Balance
+1. On the [API Keys](https://platform.openai.com/api-keys) page, click **"Create new secret key"**.
+2. Give it a name, then click **"Create secret key"**.
+3. **Copy the secret key** (starts with `sk-...`) and save it somewhere safe.
 
-1. After login, click the **"Top Up"** button to add balance
-
-   ![Top Up Balance](assets/docs/16.ytclip-ai-topup-balance.png)
-
-2. Enter the top up amount (in USD), you'll see the conversion to IDR
-
-   ![Input Top Up Amount](assets/docs/17.ytclip-ai-input-topup-amount-and-calculation-to-idr.png)
-
-3. Pay using **QRIS**
-
-   ![Pay with QRIS](assets/docs/18.ytclip-ai-pay-qris.png)
-
-4. After payment is successful, your USD balance will be added in realtime
-
-### 4.3 Create API Key
-
-1. After balance is added, click the **"Create Key"** button
-
-   ![Create Key Button](assets/docs/19.ytclip-ai-create-key.png)
-
-2. Enter a name for your API Key, then click **"Create"**
-
-   ![Create API Key Modal](assets/docs/20.ytclip-ai-create-api-key-modal.png)
-
-3. **Copy the Secret Key** that appears and save it somewhere safe
-
-   ![Copy Secret Key](assets/docs/21.ytclip-ai-copy-secret-key.png)
-
-> **⚠️ Important:** The Secret Key is only shown once! Make sure to copy it before closing the dialog.
+> **⚠️ Important:** The secret key is only shown once! Make sure to copy it before closing the dialog.
 
 After getting your API Key, continue to [AI API Configuration](#5-ai-api-configuration) to enter the key into the app.
 
@@ -181,7 +157,7 @@ The app has several AI modules that can be configured separately:
 
 1. Click the **"AI Provider"** dropdown
 2. Select the provider you have an API key for:
-   - **YT CLIP AI** - [https://ai.ytclip.org](https://ai.ytclip.org)
+   - **OpenAI** - [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
    - **OpenAI** - [https://platform.openai.com](https://platform.openai.com)
    - **Custom** - Use other providers
 
@@ -225,5 +201,5 @@ The resulting clips will be saved in the `output/` folder inside the app folder.
 
 ## ❓ Need Help?
 
-- 🔑 [Get AI API Key here](https://ai.ytclip.org)
-- 💬 Join [Discord Community](https://s.id/ytsdiscord) for Q&A, bug reports, and discussions with other users
+- 🔑 [Get AI API Key here](https://platform.openai.com/api-keys)
+- 💬 Join [GitHub Discussions](https://github.com/kingarthurborges/shortslab/discussions) for Q&A, bug reports, and discussions with other users

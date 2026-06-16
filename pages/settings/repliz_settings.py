@@ -53,7 +53,7 @@ Affordable: Only $1.74/month (29,000 IDR) for Premium plan"""
         
         ctk.CTkButton(signup_frame, text="Sign Up for Repliz", height=40,
             fg_color=("#2196F3", "#1976D2"), hover_color=("#1976D2", "#1565C0"),
-            command=lambda: webbrowser.open("https://s.id/ytrepliz")).pack(fill="x", padx=15, pady=(0, 15))
+            command=lambda: webbrowser.open("https://repliz.com")).pack(fill="x", padx=15, pady=(0, 15))
         
         # API Configuration section
         config_section = ctk.CTkFrame(self.content, fg_color=("gray90", "gray17"), corner_radius=10)
@@ -100,7 +100,7 @@ Affordable: Only $1.74/month (29,000 IDR) for Premium plan"""
         btn_frame.pack(fill="x", padx=15, pady=(0, 15))
         
         self.validate_btn = ctk.CTkButton(btn_frame, text="Validate Keys", height=40,
-            fg_color=("#3B8ED0", "#1F6AA5"), command=self.validate_keys)
+            fg_color=("#8B5CF6", "#7C3AED"), command=self.validate_keys)
         self.validate_btn.pack(side="left", fill="x", expand=True, padx=(0, 5))
         
         # Connected Accounts section (initially hidden)

@@ -1,5 +1,5 @@
 """
-Settings sub-pages for YT Short Clipper
+Settings sub-pages for ShortsLab
 """
 
 from pages.settings.ai_api_settings import AIAPISettingsSubPage

@@ -1,7 +1,7 @@
-# 🤖 AGENTS.md - AI Developer Guide for YT-Short-Clipper
+# 🤖 AGENTS.md - AI Developer Guide for ShortsLab
 
 ## 📌 Project Overview
-**YT-Short-Clipper** is a desktop application that automates the creation of short-form content (TikTok, Reels, Shorts) from long-form YouTube videos. It leverages AI (GPT-4, Whisper) for highlight detection and captioning, and Computer Vision (OpenCV) for smart cropping.
+**ShortsLab** is a desktop application that automates the creation of short-form content (TikTok, Reels, Shorts) from long-form YouTube videos. It leverages AI (GPT-4, Whisper) for highlight detection and captioning, and Computer Vision (OpenCV) for smart cropping.
 
 ## 🏗️ Architecture & Tech Stack
 

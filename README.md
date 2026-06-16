@@ -1,7 +1,6 @@
-# YT-Short-Clipper
+# ShortsLab
 
-[![Discord](https://img.shields.io/badge/Join-Discord-5865F2?logo=discord&logoColor=white)](https://s.id/ytsdiscord)
-[![GitHub Stars](https://img.shields.io/github/stars/jipraks/yt-short-clipper?style=social)](https://github.com/jipraks/yt-short-clipper)
+[![GitHub Stars](https://img.shields.io/github/stars/kingarthurborges/shortslab?style=social)](https://github.com/kingarthurborges/shortslab)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS-lightgrey)]()
 
@@ -19,8 +18,8 @@ Download the desktop app for your platform:
 
 | Platform | Download | Notes |
 |----------|----------|-------|
-| **Windows** | [Latest Release (.exe)](https://github.com/jipraks/yt-short-clipper/releases) | Windows 10+ |
-| **macOS** | [Latest Release (.dmg)](https://github.com/jipraks/yt-short-clipper/releases) | macOS Catalina+, Apple Silicon & Intel |
+| **Windows** | [Latest Release (.exe)](https://github.com/kingarthurborges/shortslab/releases) | Windows 10+ |
+| **macOS** | [Latest Release (.dmg)](https://github.com/kingarthurborges/shortslab/releases) | macOS Catalina+, Apple Silicon & Intel |
 
 Then follow the complete setup guide:
 
@@ -62,7 +61,7 @@ If you want to contribute or run from source:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        YT-Short-Clipper                         │
+│                        ShortsLab                         │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  ┌──────────┐    ┌──────────────┐    ┌─────────────┐           │
@@ -135,8 +134,7 @@ google-auth-oauthlib>=1.1.0
 ### API Keys
 
 The app supports **10+ AI providers** including:
-- **YT Clip AI** (Recommended) - [https://ai.ytclip.org](https://ai.ytclip.org)
-- **OpenAI** - GPT-4, Whisper, TTS
+- **OpenAI** (Recommended) - GPT-4, Whisper, TTS — [get an API key](https://platform.openai.com/api-keys)
 - **Google Gemini** - Free tier available
 - **Groq** - Fastest + free
 - **Anthropic Claude** - High quality
@@ -153,8 +151,8 @@ See [GUIDE.md](GUIDE.md) or [PANDUAN.md](PANDUAN.md) for detailed API setup inst
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/jipraks/yt-short-clipper.git
-cd yt-short-clipper
+git clone https://github.com/kingarthurborges/shortslab.git
+cd shortslab
 ```
 
 ### 2. Install System Dependencies
@@ -195,7 +193,7 @@ The app will create a `config.json` file on first run where you can save your AI
 ## 📁 Project Structure
 
 ```
-yt-short-clipper/
+shortslab/
 ├── app.py                      # Main GUI application (entry point)
 ├── clipper_core.py             # Core processing logic (download, AI, video)
 ├── version.py                  # Version info and update URL
@@ -453,11 +451,11 @@ Contributions are welcome! We greatly appreciate contributions from anyone.
 # 1. Fork this repo (click the Fork button on GitHub)
 
 # 2. Clone your fork
-git clone https://github.com/YOUR-USERNAME/yt-short-clipper.git
-cd yt-short-clipper
+git clone https://github.com/YOUR-USERNAME/shortslab.git
+cd shortslab
 
 # 3. Add upstream remote
-git remote add upstream https://github.com/jipraks/yt-short-clipper.git
+git remote add upstream https://github.com/kingarthurborges/shortslab.git
 
 # 4. Create a new branch
 git checkout -b feature/your-new-feature
@@ -513,7 +511,7 @@ Made with ☕ by **Aji Prakoso** for content creators
 
 | | |
 |---|---|
-| 🎓 | [n8n & Automation eCourse](https://classroom.jipraks.com) |
-| 📸 | [@jipraks on Instagram](https://instagram.com/jipraks) |
-| 🎬 | [Aji Prakoso on YouTube](https://youtube.com/@jipraks) |
-| 🌐 | [About Aji Prakoso](https://www.jipraks.com) |
+| 🎓 | [n8n & Automation eCourse](https://classroom.kingarthurborges.com) |
+| 📸 | [@kingarthurborges on Instagram](https://instagram.com/kingarthurborges) |
+| 🎬 | [Aji Prakoso on YouTube](https://youtube.com/@kingarthurborges) |
+| 🌐 | [About Aji Prakoso](https://www.kingarthurborges.com) |

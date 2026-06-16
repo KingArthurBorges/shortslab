@@ -2090,7 +2090,7 @@ Transcript:
     def _whisper_transcribe_words_api(self, audio_path: str):
         """Transcribe an audio file with word-level timestamps using raw HTTP.
 
-        Compresses the audio to MP3 before uploading (the ytclip proxy drops
+        Compresses the audio to MP3 before uploading (some API proxies drop
         connections for large WAV files >~1MB). Uses ``requests`` instead of
         the OpenAI SDK for proxy compatibility. Tries with
         ``timestamp_granularities[]=word`` first; if the proxy rejects it

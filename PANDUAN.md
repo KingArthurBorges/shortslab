@@ -1,6 +1,6 @@
-# 📖 Panduan Pengguna YT-Short-Clipper
+# 📖 Panduan Pengguna ShortsLab
 
-Panduan lengkap untuk menggunakan YT-Short-Clipper bagi pemula.
+Panduan lengkap untuk menggunakan ShortsLab bagi pemula.
 
 ---
 
@@ -14,7 +14,7 @@ Panduan lengkap untuk menggunakan YT-Short-Clipper bagi pemula.
   - [3.1 Install Extension Browser](#31-install-extension-browser)
   - [3.2 Export Cookies](#32-export-cookies)
   - [3.3 Upload Cookies ke Aplikasi](#33-upload-cookies-ke-aplikasi)
-- [4. Membuat API Key di YT Clip AI (Rekomendasi)](#4-membuat-api-key-di-yt-clip-ai-rekomendasi)
+- [4. Membuat API Key di OpenAI (Rekomendasi)](#4-membuat-api-key-di-yt-clip-ai-rekomendasi)
   - [4.1 Login dengan Google](#41-login-dengan-google)
   - [4.2 Top Up Balance](#42-top-up-balance)
   - [4.3 Buat API Key](#43-buat-api-key)
@@ -32,7 +32,7 @@ Panduan lengkap untuk menggunakan YT-Short-Clipper bagi pemula.
 
 ### 1.1 Download dari GitHub
 
-1. Buka halaman GitHub YT-Short-Clipper
+1. Buka halaman GitHub ShortsLab
 2. Klik menu **"Releases"** di sidebar kanan
 
    ![GitHub Releases](assets/docs/01.github-releases.png)
@@ -108,46 +108,23 @@ Cookies diperlukan agar aplikasi bisa mengakses video YouTube atas nama kamu.
 
 ---
 
-## 4. Membuat API Key di YT Clip AI (Rekomendasi)
+## 4. Membuat API Key (Rekomendasi OpenAI)
 
-**YT Clip AI** adalah AI provider yang direkomendasikan karena harga lebih terjangkau dan sudah dioptimasi untuk aplikasi ini.
+**OpenAI** adalah AI provider yang direkomendasikan, tapi aplikasi ini mendukung
+10+ provider (Google Gemini, Groq, Anthropic, dan endpoint apa pun yang
+kompatibel dengan OpenAI).
 
-### 4.1 Login dengan Google
+### 4.1 Buat akun OpenAI
 
-1. Buka [https://ai.ytclip.org](https://ai.ytclip.org)
-2. Klik **"Login with Google"** dan pilih akun Google kamu
+1. Buka [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+2. Daftar atau login.
+3. Tambahkan metode pembayaran / kredit di **Settings → Billing** (API bersifat pay-as-you-go).
 
-   ![YT Clip AI Login](assets/docs/15.ytclip-ai-login-google.png)
+### 4.2 Buat API Key
 
-### 4.2 Top Up Balance
-
-1. Setelah login, klik tombol **"Top Up"** untuk menambah saldo
-
-   ![Top Up Balance](assets/docs/16.ytclip-ai-topup-balance.png)
-
-2. Masukkan jumlah top up yang diinginkan (dalam USD), akan terlihat konversi ke IDR
-
-   ![Input Top Up Amount](assets/docs/17.ytclip-ai-input-topup-amount-and-calculation-to-idr.png)
-
-3. Bayar menggunakan **QRIS**
-
-   ![Pay with QRIS](assets/docs/18.ytclip-ai-pay-qris.png)
-
-4. Setelah pembayaran berhasil, saldo USD akan langsung masuk secara realtime
-
-### 4.3 Buat API Key
-
-1. Setelah saldo terisi, klik tombol **"Create Key"**
-
-   ![Create Key Button](assets/docs/19.ytclip-ai-create-key.png)
-
-2. Isi nama untuk API Key kamu, lalu klik **"Create"**
-
-   ![Create API Key Modal](assets/docs/20.ytclip-ai-create-api-key-modal.png)
-
-3. **Copy Secret Key** yang muncul dan simpan di tempat aman
-
-   ![Copy Secret Key](assets/docs/21.ytclip-ai-copy-secret-key.png)
+1. Di halaman [API Keys](https://platform.openai.com/api-keys), klik **"Create new secret key"**.
+2. Beri nama, lalu klik **"Create secret key"**.
+3. **Copy secret key** (diawali `sk-...`) dan simpan di tempat aman.
 
 > **⚠️ Penting:** Secret Key hanya ditampilkan sekali! Pastikan sudah di-copy sebelum menutup dialog.
 
@@ -181,7 +158,7 @@ Aplikasi memiliki beberapa modul AI yang bisa dikonfigurasi secara terpisah:
 
 1. Klik dropdown **"AI Provider"**
 2. Pilih provider yang kamu punya API key-nya:
-   - **YT CLIP AI** - [https://ai.ytclip.org](https://ai.ytclip.org)
+   - **OpenAI** - [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
    - **OpenAI** - [https://platform.openai.com](https://platform.openai.com)
    - **Custom** - Pakai provider lain
 
@@ -225,5 +202,5 @@ Hasil clips akan tersimpan di folder `output/` dalam folder aplikasi.
 
 ## ❓ Butuh Bantuan?
 
-- 🔑 [Dapatkan API Key AI di sini](https://ai.ytclip.org)
-- 💬 Gabung [Discord Community](https://s.id/ytsdiscord) untuk tanya jawab, laporan bug, dan diskusi dengan pengguna lain
+- 🔑 [Dapatkan API Key AI di sini](https://platform.openai.com/api-keys)
+- 💬 Gabung [GitHub Discussions](https://github.com/kingarthurborges/shortslab/discussions) untuk tanya jawab, laporan bug, dan diskusi dengan pengguna lain

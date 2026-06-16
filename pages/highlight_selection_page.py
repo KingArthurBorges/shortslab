@@ -116,7 +116,7 @@ class HighlightSelectionPage(ctk.CTkFrame):
         # Process button
         self.process_btn = ctk.CTkButton(bottom_frame, text="🎬 Process Selected Clips", height=45,
             font=ctk.CTkFont(size=14, weight="bold"), command=self.process_selected,
-            fg_color=("#3B8ED0", "#1F6AA5"), hover_color=("#2E7AB8", "#16527D"))
+            fg_color=("#8B5CF6", "#7C3AED"), hover_color=("#7C3AED", "#6D28D9"))
         self.process_btn.pack(fill="x")
         
         # Footer
@@ -301,9 +301,9 @@ class HighlightSelectionPage(ctk.CTkFrame):
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/jipraks/yt-short-clipper")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def open_discord(self):
         """Open Discord server"""
         import webbrowser
-        webbrowser.open("https://s.id/ytsdiscord")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")

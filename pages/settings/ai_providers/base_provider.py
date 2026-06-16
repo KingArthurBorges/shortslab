@@ -40,9 +40,9 @@ class BaseProviderSettingsPage(BaseSettingsSubPage):
         
         ctk.CTkLabel(type_frame, text="Select API Provider", font=ctk.CTkFont(size=11)).pack(anchor="w")
         
-        self.provider_type_var = ctk.StringVar(value="ytclip")
-        self.provider_dropdown = ctk.CTkOptionMenu(type_frame, 
-            values=["🎬 YT CLIP AI", "🤖 OPEN AI", "⚙️ CUSTOM"],
+        self.provider_type_var = ctk.StringVar(value="🤖 OPEN AI")
+        self.provider_dropdown = ctk.CTkOptionMenu(type_frame,
+            values=["🤖 OPEN AI", "⚙️ CUSTOM"],
             variable=self.provider_type_var, height=36,
             command=self._on_provider_type_changed)
         self.provider_dropdown.pack(fill="x", pady=(5, 0))
@@ -120,7 +120,7 @@ class BaseProviderSettingsPage(BaseSettingsSubPage):
         actions_frame.pack(fill="x", pady=(10, 0))
         
         ctk.CTkButton(actions_frame, text="🔍 Validate Configuration", height=40,
-            fg_color=("#3B8ED0", "#1F6AA5"), hover_color=("#36719F", "#144870"),
+            fg_color=("#8B5CF6", "#7C3AED"), hover_color=("#7C3AED", "#6D28D9"),
             command=self.validate_config).pack(fill="x", pady=(0, 10))
         
         # Save button
@@ -136,9 +136,7 @@ class BaseProviderSettingsPage(BaseSettingsSubPage):
     def _get_provider_type_key(self):
         """Get provider type key from dropdown value"""
         value = self.provider_type_var.get()
-        if "YT CLIP" in value:
-            return "ytclip"
-        elif "OPEN AI" in value:
+        if "OPEN AI" in value:
             return "openai"
         else:
             return "custom"
@@ -146,9 +144,7 @@ class BaseProviderSettingsPage(BaseSettingsSubPage):
     def get_base_url(self):
         """Get base URL based on provider type"""
         ptype = self._get_provider_type_key()
-        if ptype == "ytclip":
-            return "https://ai-api.ytclip.org/v1"
-        elif ptype == "openai":
+        if ptype == "openai":
             return "https://api.openai.com/v1"
         else:
             return self.url_entry.get().strip() or "https://api.openai.com/v1"
@@ -238,9 +234,7 @@ class BaseProviderSettingsPage(BaseSettingsSubPage):
         
         # Determine provider type from URL
         base_url = provider.get("base_url", "")
-        if "ytclip" in base_url:
-            self.provider_type_var.set("🎬 YT CLIP AI")
-        elif "openai.com" in base_url:
+        if "openai.com" in base_url:
             self.provider_type_var.set("🤖 OPEN AI")
         else:
             self.provider_type_var.set("⚙️ CUSTOM")

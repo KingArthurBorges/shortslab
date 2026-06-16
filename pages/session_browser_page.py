@@ -169,7 +169,7 @@ class SessionBrowserPage(ctk.CTkFrame):
             # View Session button (always show if highlights exist)
             if highlights_count > 0:
                 view_session_btn = ctk.CTkButton(action_row, text="👁️ View Session", height=32, width=140,
-                    font=ctk.CTkFont(size=11), fg_color=("#3B8ED0", "#1F6AA5"),
+                    font=ctk.CTkFont(size=11), fg_color=("#8B5CF6", "#7C3AED"),
                     command=lambda d=data: self.resume_session(d))
                 view_session_btn.pack(side="left", padx=(0, 5))
             
@@ -250,9 +250,9 @@ class SessionBrowserPage(ctk.CTkFrame):
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/jipraks/yt-short-clipper")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def open_discord(self):
         """Open Discord server"""
         import webbrowser
-        webbrowser.open("https://s.id/ytsdiscord")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")

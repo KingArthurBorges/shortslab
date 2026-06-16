@@ -114,7 +114,7 @@ class APIStatusPage(ctk.CTkFrame):
         self.yt_info_label = ctk.CTkLabel(yt_left, text="", font=ctk.CTkFont(size=9), text_color="gray")
         self.yt_info_label.pack(anchor="w")
         self.yt_connect_btn = ctk.CTkButton(yt_row, text="Connect", width=80, height=28, font=ctk.CTkFont(size=10),
-            fg_color=("#3B8ED0", "#1F6AA5"), command=self.connect_youtube)
+            fg_color=("#8B5CF6", "#7C3AED"), command=self.connect_youtube)
         # Button will be shown/hidden based on status
         
         # Repliz API card
@@ -130,7 +130,7 @@ class APIStatusPage(ctk.CTkFrame):
         self.repliz_info_label = ctk.CTkLabel(repliz_left, text="", font=ctk.CTkFont(size=9), text_color="gray")
         self.repliz_info_label.pack(anchor="w")
         self.repliz_register_btn = ctk.CTkButton(repliz_row, text="Register", width=80, height=28, font=ctk.CTkFont(size=10),
-            fg_color=("#3B8ED0", "#1F6AA5"), command=self.register_repliz)
+            fg_color=("#8B5CF6", "#7C3AED"), command=self.register_repliz)
         # Button will be shown/hidden based on status
         
         # Refresh button
@@ -267,17 +267,17 @@ class APIStatusPage(ctk.CTkFrame):
     def register_repliz(self):
         """Open Repliz registration"""
         import webbrowser
-        webbrowser.open("https://s.id/ytrepliz")
+        webbrowser.open("https://repliz.com")
     
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/jipraks/yt-short-clipper")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def open_discord(self):
         """Open Discord server invite link"""
         import webbrowser
-        webbrowser.open("https://s.id/ytsdiscord")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def show_page(self, page_name):
         """Delegate to parent app's show_page method"""
@@ -364,7 +364,7 @@ class LibStatusPage(ctk.CTkFrame):
         self.ffplay_exe_label.pack(anchor="w")
         
         self.ffmpeg_download_btn = ctk.CTkButton(ffmpeg_card, text="📥 Download", height=26, font=ctk.CTkFont(size=10),
-            command=self.download_ffmpeg, fg_color=("#3B8ED0", "#1F6AA5"))
+            command=self.download_ffmpeg, fg_color=("#8B5CF6", "#7C3AED"))
         self.ffmpeg_reinstall_btn = ctk.CTkButton(ffmpeg_card, text="🔄 Reinstall", height=26, font=ctk.CTkFont(size=10),
             command=self.download_ffmpeg, fg_color=("#FF8C00", "#CC7000"))
         self.ffmpeg_progress = ctk.CTkProgressBar(ffmpeg_card, height=6)
@@ -380,7 +380,7 @@ class LibStatusPage(ctk.CTkFrame):
         self.deno_info_label = ctk.CTkLabel(deno_card, text="", font=ctk.CTkFont(size=9), text_color="gray")
         self.deno_info_label.pack(anchor="w", padx=10, pady=(2, 5))
         self.deno_download_btn = ctk.CTkButton(deno_card, text="📥 Download", height=26, font=ctk.CTkFont(size=10),
-            command=self.download_deno, fg_color=("#3B8ED0", "#1F6AA5"))
+            command=self.download_deno, fg_color=("#8B5CF6", "#7C3AED"))
         self.deno_progress = ctk.CTkProgressBar(deno_card, height=6)
         self.deno_progress_label = ctk.CTkLabel(deno_card, text="", font=ctk.CTkFont(size=8), text_color="gray")
         
@@ -727,12 +727,12 @@ class LibStatusPage(ctk.CTkFrame):
     def open_github(self):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/jipraks/yt-short-clipper")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def open_discord(self):
         """Open Discord server invite link"""
         import webbrowser
-        webbrowser.open("https://s.id/ytsdiscord")
+        webbrowser.open("https://github.com/kingarthurborges/shortslab")
     
     def show_page(self, page_name):
         """Delegate to parent app's show_page method"""

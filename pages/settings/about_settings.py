@@ -26,7 +26,7 @@ class AboutSettingsSubPage(BaseSettingsSubPage):
         info_frame = ctk.CTkFrame(self.content, fg_color="transparent")
         info_frame.pack(fill="x", pady=(0, 15))
         
-        ctk.CTkLabel(info_frame, text="YT Short Clipper", 
+        ctk.CTkLabel(info_frame, text="ShortsLab", 
             font=ctk.CTkFont(size=20, weight="bold")).pack()
         ctk.CTkLabel(info_frame, text=f"v{__version__}", 
             font=ctk.CTkFont(size=12), text_color="gray").pack(pady=(5, 0))
@@ -65,15 +65,15 @@ and YouTube Shorts."""
         
         ctk.CTkButton(links_frame, text="GitHub Repository", height=40,
             fg_color=("#24292e", "#0d1117"), hover_color=("#2c3136", "#161b22"),
-            command=lambda: webbrowser.open("https://github.com/jipraks/yt-short-clipper")).pack(fill="x", pady=2)
+            command=lambda: webbrowser.open("https://github.com/kingarthurborges/shortslab")).pack(fill="x", pady=2)
         
-        ctk.CTkButton(links_frame, text="@jipraks on Instagram", height=40,
+        ctk.CTkButton(links_frame, text="@kingarthurborges on Instagram", height=40,
             fg_color=("#E4405F", "#C13584"), hover_color=("#F56040", "#E1306C"),
-            command=lambda: webbrowser.open("https://instagram.com/jipraks")).pack(fill="x", pady=2)
+            command=lambda: webbrowser.open("https://instagram.com/kingarthurborges")).pack(fill="x", pady=2)
         
         ctk.CTkButton(links_frame, text="YouTube Channel", height=40,
             fg_color=("#c4302b", "#FF0000"), hover_color=("#ff0000", "#CC0000"),
-            command=lambda: webbrowser.open("https://youtube.com/@jipraks")).pack(fill="x", pady=2)
+            command=lambda: webbrowser.open("https://youtube.com/@kingarthurborges")).pack(fill="x", pady=2)
         
         # Footer
         footer_frame = ctk.CTkFrame(self.content, fg_color="transparent")

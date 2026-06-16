@@ -56,7 +56,8 @@ class PageHeader(ctk.CTkFrame):
             
             tagline_col = ctk.CTkFrame(right_frame, fg_color="transparent")
             tagline_col.pack(side="left")
-            ctk.CTkLabel(tagline_col, text="YT Short Clipper", font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w")
+            ctk.CTkLabel(tagline_col, text="ShortsLab", font=ctk.CTkFont(size=14, weight="bold"),
+                text_color="#A78BFA").pack(anchor="w")
             ctk.CTkLabel(tagline_col, text="Turn long YouTube videos into viral shorts — Powered by AI", 
                 font=ctk.CTkFont(size=9), text_color="gray").pack(anchor="w")
             return
@@ -84,8 +85,9 @@ class PageHeader(ctk.CTkFrame):
         
         title_col = ctk.CTkFrame(title_frame, fg_color="transparent")
         title_col.pack(side="left")
-        ctk.CTkLabel(title_col, text="YT Short Clipper", font=ctk.CTkFont(size=20, weight="bold")).pack(anchor="w")
-        ctk.CTkLabel(title_col, text="Turn long YouTube videos into viral shorts — Powered by AI", font=ctk.CTkFont(size=11), 
+        ctk.CTkLabel(title_col, text="ShortsLab", font=ctk.CTkFont(size=20, weight="bold"),
+            text_color="#A78BFA").pack(anchor="w")
+        ctk.CTkLabel(title_col, text="Turn long YouTube videos into viral shorts — Powered by AI", font=ctk.CTkFont(size=11),
             text_color="gray").pack(anchor="w")
         
         # Navigation buttons on right (if enabled)
@@ -160,9 +162,9 @@ class PageFooter(ctk.CTkFrame):
         try:
             from version import __version__
             current_year = datetime.now().year
-            copyright_text = f"© {current_year} YT Short Clipper • v{__version__}"
+            copyright_text = f"© {current_year} ShortsLab • v{__version__}"
         except:
-            copyright_text = "© 2026 YT Short Clipper"
+            copyright_text = "© 2026 ShortsLab"
         
         ctk.CTkLabel(footer_content, text=copyright_text, 
             font=ctk.CTkFont(size=10), text_color="gray", anchor="w").pack(side="left")
@@ -177,25 +179,14 @@ class PageFooter(ctk.CTkFrame):
         github_link.pack(side="left", padx=(0, 15))
         github_link.bind("<Button-1>", lambda e: self.app.open_github())
         
-        # Get AI API Key link (cyan/teal)
-        api_key_link = ctk.CTkLabel(links_frame, text="🔑 Get AI API Key", 
-            font=ctk.CTkFont(size=11), text_color="#00CED1", cursor="hand2")
-        api_key_link.pack(side="left", padx=(0, 15))
+        # Get AI API Key link (accent)
+        api_key_link = ctk.CTkLabel(links_frame, text="🔑 Get AI API Key",
+            font=ctk.CTkFont(size=11), text_color="#A78BFA", cursor="hand2")
+        api_key_link.pack(side="left")
         api_key_link.bind("<Button-1>", lambda e: self.open_ai_api_key_page())
-        
-        # AutoKlip link (multi-platform companion)
-        autoklip_link = ctk.CTkLabel(links_frame, text="📱 Use AutoKlip (for Web, Android and iOS)", 
-            font=ctk.CTkFont(size=11), text_color="#5865F2", cursor="hand2")
-        autoklip_link.pack(side="left")
-        autoklip_link.bind("<Button-1>", lambda e: self.open_autoklip())
 
-    def open_autoklip(self):
-        """Open AutoKlip multi-platform link"""
-        import webbrowser
-        webbrowser.open("https://dub.sh/autoklip")
-    
     def open_ai_api_key_page(self):
         """Open AI API Key page"""
         import webbrowser
-        webbrowser.open("https://ai.ytclip.org")
+        webbrowser.open("https://platform.openai.com/api-keys")
 

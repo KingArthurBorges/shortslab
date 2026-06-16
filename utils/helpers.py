@@ -1,5 +1,5 @@
 """
-Helper utility functions for YT Short Clipper
+Helper utility functions for ShortsLab
 """
 
 import sys

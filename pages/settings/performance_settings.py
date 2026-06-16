@@ -42,7 +42,7 @@ class PerformanceSettingsSubPage(BaseSettingsSubPage):
         
         # Detect button
         self.detect_gpu_btn = ctk.CTkButton(detection_frame, text="🔄 Detect GPU", height=36,
-            fg_color=("#3B8ED0", "#1F6AA5"), command=self.detect_gpu)
+            fg_color=("#8B5CF6", "#7C3AED"), command=self.detect_gpu)
         self.detect_gpu_btn.pack(fill="x")
         
         # GPU Acceleration Section
