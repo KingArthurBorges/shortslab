@@ -303,31 +303,31 @@ def generate_seo_metadata(client, clip_title: str, hook_text: str, model: str = 
     Returns:
         dict with title, description, tags
     """
-    prompt = f"""Kamu adalah expert YouTube SEO untuk konten short-form (Shorts/Reels/TikTok).
+    prompt = f"""You are a YouTube SEO expert for short-form content (Shorts/Reels/TikTok).
 
-Berdasarkan informasi clip berikut, buatkan:
-1. Title yang catchy dan SEO-friendly (max 100 karakter, include emoji)
-2. Description yang engaging dengan hashtags (max 500 karakter)
-3. Tags yang relevan (5-10 tags)
+Based on the following clip information, create:
+1. A catchy, SEO-friendly title (max 100 characters, include an emoji)
+2. An engaging description with hashtags (max 500 characters)
+3. Relevant tags (5-10 tags)
 
-Info Clip:
-- Judul: {clip_title}
+Clip Info:
+- Title: {clip_title}
 - Hook: {hook_text}
 
-Format response dalam JSON:
+Format the response as JSON:
 {{
-    "title": "judul dengan emoji",
-    "description": "deskripsi dengan hashtags",
+    "title": "title with emoji",
+    "description": "description with hashtags",
     "tags": ["tag1", "tag2", "tag3"]
 }}
 
-PENTING:
-- Title harus under 100 karakter
-- Gunakan bahasa Indonesia
-- Include trending hashtags seperti #shorts #viral #fyp
-- Buat yang clickbait tapi tetap relevan
+IMPORTANT:
+- Title must be under 100 characters
+- Write in English
+- Include trending hashtags like #shorts #viral #fyp
+- Make it clickbait but still relevant
 
-Return HANYA JSON, tanpa text lain."""
+Return ONLY JSON, no other text."""
 
     try:
         response = client.chat.completions.create(

@@ -60,7 +60,7 @@ ICON_ICO_PATH = ASSETS_DIR / "icon.ico"
 COOKIES_FILE = APP_DIR / "cookies.txt"  # NEW: Cookies file path
 
 
-class YTShortClipperApp(ctk.CTk):
+class ShortsLabApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         
@@ -727,8 +727,8 @@ class YTShortClipperApp(ctk.CTk):
         video_id = extract_video_id(url)
         
         if video_id and self.subtitle_loaded and libs_ok:
-            self.start_btn.configure(state="normal", fg_color=("#1f538d", "#14375e"), 
-                                    hover_color=("#144870", "#0d2a47"))
+            self.start_btn.configure(state="normal", fg_color=("#8B5CF6", "#7C3AED"),
+                                    hover_color=("#7C3AED", "#6D28D9"))
         else:
             self.start_btn.configure(state="disabled", fg_color="gray", hover_color="gray")
     
@@ -1842,7 +1842,7 @@ def main():
     sys.excepthook = handle_exception
     
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    app = YTShortClipperApp()
+    app = ShortsLabApp()
     app.mainloop()
 
 
