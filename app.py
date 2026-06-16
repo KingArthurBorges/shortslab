@@ -184,8 +184,8 @@ class YTShortClipperApp(ctk.CTk):
         # Reset subtitle state (keep visible but disabled)
         self.subtitle_loaded = False
         self.subtitle_loading.pack_forget()
-        self.subtitle_dropdown.configure(state="disabled", values=["id - Indonesian"])
-        self.subtitle_var.set("id - Indonesian")
+        self.subtitle_dropdown.configure(state="disabled", values=["en - English"])
+        self.subtitle_var.set("en - English")
         
         # Reset clips input to default
         self.clips_var.set("5")
@@ -253,9 +253,9 @@ class YTShortClipperApp(ctk.CTk):
         self.subtitle_frame.pack(fill="x", pady=(0, 8))
         self.subtitle_loaded = False
         
-        self.subtitle_var = ctk.StringVar(value="id - Indonesian")
+        self.subtitle_var = ctk.StringVar(value="en - English")
         self.subtitle_dropdown = ctk.CTkOptionMenu(self.subtitle_frame, 
-            variable=self.subtitle_var, values=["id - Indonesian"], width=290,
+            variable=self.subtitle_var, values=["en - English"], width=290,
             height=32, fg_color=("#2b2b2b", "#1a1a1a"),
             button_color=("#3a3a3a", "#2a2a2a"), button_hover_color=("#4a4a4a", "#3a3a3a"),
             state="disabled")
@@ -700,8 +700,8 @@ class YTShortClipperApp(ctk.CTk):
             self.create_preview_placeholder()
             # Reset subtitle dropdown to disabled state
             self.subtitle_loading.pack_forget()
-            self.subtitle_dropdown.configure(state="disabled", values=["id - Indonesian"])
-            self.subtitle_var.set("id - Indonesian")
+            self.subtitle_dropdown.configure(state="disabled", values=["en - English"])
+            self.subtitle_var.set("en - English")
             # Disable start button when URL is invalid or cookies missing
             self.update_start_button_state()
     
@@ -881,10 +881,10 @@ class YTShortClipperApp(ctk.CTk):
         # Create dropdown options
         options = [f"{sub['code']} - {sub['name']}" for sub in subtitles]
         
-        # Set default to Indonesian if available, otherwise first option
+        # Set default to English if available, otherwise first option
         default_value = options[0]
         for opt in options:
-            if opt.startswith("id "):
+            if opt.startswith("en "):
                 default_value = opt
                 break
         
@@ -1101,9 +1101,9 @@ class YTShortClipperApp(ctk.CTk):
             messagebox.showerror("Error", "Clips must be 1-10!")
             return
         
-        # Get selected subtitle language (extract code from "id - Indonesian" format)
+        # Get selected subtitle language (extract code from "en - English" format)
         subtitle_selection = self.subtitle_var.get()
-        subtitle_lang = subtitle_selection.split(" - ")[0] if " - " in subtitle_selection else "id"
+        subtitle_lang = subtitle_selection.split(" - ")[0] if " - " in subtitle_selection else "en"
         
         # Reset UI
         self.processing = True
@@ -1123,7 +1123,7 @@ class YTShortClipperApp(ctk.CTk):
                         args=(url, num_clips, output_dir, model, subtitle_lang), 
                         daemon=True).start()
     
-    def run_processing(self, url, num_clips, output_dir, model, add_captions, add_hook, subtitle_lang="id"):
+    def run_processing(self, url, num_clips, output_dir, model, add_captions, add_hook, subtitle_lang="en"):
         try:
             from clipper_core import AutoClipperCore
             
@@ -1262,7 +1262,7 @@ class YTShortClipperApp(ctk.CTk):
         tts_chars = self.token_usage['tts_chars']
         self.pages["processing"].update_tokens(gpt_total, whisper_minutes, tts_chars)
     
-    def run_find_highlights(self, url, num_clips, output_dir, model, subtitle_lang="id"):
+    def run_find_highlights(self, url, num_clips, output_dir, model, subtitle_lang="en"):
         """NEW: Phase 1 - Find highlights only (don't process yet)"""
         try:
             from clipper_core import AutoClipperCore, SubtitleNotFoundError
@@ -1548,7 +1548,7 @@ class YTShortClipperApp(ctk.CTk):
                 face_tracking_mode=face_tracking_mode,
                 mediapipe_settings=mediapipe_settings,
                 ai_providers=self.config.get("ai_providers"),
-                subtitle_language="id",  # Already downloaded
+                subtitle_language="en",  # Already downloaded
                 log_callback=log_with_debug,
                 progress_callback=lambda s, p: self.after(0, lambda: self.update_clipping_progress(s, p)),
                 token_callback=lambda a, b, c, d: None,  # No token tracking for clipping
