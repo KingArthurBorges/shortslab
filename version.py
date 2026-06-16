@@ -6,7 +6,7 @@ __version__ = "0.1.0"
 __version_info__ = (0, 1, 0)
 
 # Public project links
-REPO_URL = "https://github.com/thekinglab/shortslab"
+REPO_URL = "https://github.com/KingArthurBorges/shortslab"
 
 # Update check endpoint. Leave empty to disable the auto-update check.
 UPDATE_CHECK_URL = ""
