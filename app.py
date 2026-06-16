@@ -8,6 +8,10 @@ import json
 import os
 os.environ["PATH"] = "/opt/homebrew/bin:" + os.path.expanduser("~/.deno/bin") + ":" + os.environ.get("PATH", "")
 import sys
+import signal
+# Ignore broken pipe — GUI apps don't need stdout; avoids BrokenPipeError on flush
+if hasattr(signal, "SIGPIPE"):
+    signal.signal(signal.SIGPIPE, signal.SIG_IGN)
 import subprocess
 import re
 import urllib.request
@@ -184,8 +188,8 @@ class ShortsLabApp(ctk.CTk):
         # Reset subtitle state (keep visible but disabled)
         self.subtitle_loaded = False
         self.subtitle_loading.pack_forget()
-        self.subtitle_dropdown.configure(state="disabled", values=["en - English"])
-        self.subtitle_var.set("en - English")
+        self.subtitle_dropdown.configure(state="disabled", values=["pt - Portuguese"])
+        self.subtitle_var.set("pt - Portuguese")
         
         # Reset clips input to default
         self.clips_var.set("5")
@@ -253,9 +257,9 @@ class ShortsLabApp(ctk.CTk):
         self.subtitle_frame.pack(fill="x", pady=(0, 8))
         self.subtitle_loaded = False
         
-        self.subtitle_var = ctk.StringVar(value="en - English")
+        self.subtitle_var = ctk.StringVar(value="pt - Portuguese")
         self.subtitle_dropdown = ctk.CTkOptionMenu(self.subtitle_frame, 
-            variable=self.subtitle_var, values=["en - English"], width=290,
+            variable=self.subtitle_var, values=["pt - Portuguese"], width=290,
             height=32, fg_color=("#2b2b2b", "#1a1a1a"),
             button_color=("#3a3a3a", "#2a2a2a"), button_hover_color=("#4a4a4a", "#3a3a3a"),
             state="disabled")
@@ -602,7 +606,16 @@ class ShortsLabApp(ctk.CTk):
         api_key = self.config.get("api_key", "")
         base_url = self.config.get("base_url", "https://api.openai.com/v1")
         model = self.config.get("model", "")
-        
+
+        # Fall back to the per-module Highlight Finder provider config when the
+        # legacy root api_key is not set (the AI API settings save there).
+        if not api_key:
+            hf = self.config.get("ai_providers", {}).get("highlight_finder", {})
+            if hf.get("api_key"):
+                api_key = hf.get("api_key", "")
+                base_url = hf.get("base_url", base_url)
+                model = model or hf.get("model", "")
+
         if api_key:
             try:
                 self.client = OpenAI(api_key=api_key, base_url=base_url)
@@ -700,8 +713,8 @@ class ShortsLabApp(ctk.CTk):
             self.create_preview_placeholder()
             # Reset subtitle dropdown to disabled state
             self.subtitle_loading.pack_forget()
-            self.subtitle_dropdown.configure(state="disabled", values=["en - English"])
-            self.subtitle_var.set("en - English")
+            self.subtitle_dropdown.configure(state="disabled", values=["pt - Portuguese"])
+            self.subtitle_var.set("pt - Portuguese")
             # Disable start button when URL is invalid or cookies missing
             self.update_start_button_state()
     
@@ -880,14 +893,21 @@ class ShortsLabApp(ctk.CTk):
         
         # Create dropdown options
         options = [f"{sub['code']} - {sub['name']}" for sub in subtitles]
-        
-        # Set default to English if available, otherwise first option
+
+        # Prioritize Brazilian Portuguese (then Portuguese original, then English)
+        # so the list opens on the most relevant language and avoids look-alike
+        # codes like "br" (which is Breton, not Brazil).
+        priority = ["pt-br", "pt-BR", "pt", "pt-orig", "pt-PT", "en"]
+
+        def _rank(opt):
+            code = opt.split(" - ")[0]
+            return priority.index(code) if code in priority else len(priority)
+
+        options.sort(key=lambda o: (_rank(o), o.lower()))
+
+        # Default to the first (highest-priority) option
         default_value = options[0]
-        for opt in options:
-            if opt.startswith("en "):
-                default_value = opt
-                break
-        
+
         self.subtitle_var.set(default_value)
         self.subtitle_dropdown.configure(values=options, state="normal")
         
@@ -1101,7 +1121,7 @@ class ShortsLabApp(ctk.CTk):
             messagebox.showerror("Error", "Clips must be 1-10!")
             return
         
-        # Get selected subtitle language (extract code from "en - English" format)
+        # Get selected subtitle language (extract code from "pt - Portuguese" format)
         subtitle_selection = self.subtitle_var.get()
         subtitle_lang = subtitle_selection.split(" - ")[0] if " - " in subtitle_selection else "en"
         

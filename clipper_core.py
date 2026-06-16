@@ -2296,137 +2296,196 @@ Transcript:
         
         video_context = ""
         if video_info:
-            video_context = f"""INFO VIDEO:
-- Judul: {video_info.get('title', 'Unknown')}
+            video_context = f"""VIDEO INFO:
+- Title: {video_info.get('title', 'Unknown')}
 - Channel: {video_info.get('channel', 'Unknown')}
-- Deskripsi: {video_info.get('description', '')[:500]}"""
+- Description: {video_info.get('description', '')[:500]}"""
         
+        # Sample transcript to stay within ~25k tokens (≈100k chars).
+        # We sample uniformly so every part of the video is represented even for long videos.
+        # gpt-4o/gpt-4.1 on free-tier accounts have a 30k TPM limit per minute.
+        MAX_TRANSCRIPT_CHARS = 100_000
+        transcript_lines = transcript.splitlines()
+        if len(transcript) > MAX_TRANSCRIPT_CHARS:
+            step = max(1, len(transcript_lines) // (MAX_TRANSCRIPT_CHARS // (len(transcript) // max(len(transcript_lines), 1))))
+            sampled = transcript_lines[::step]
+            transcript_for_ai = "\n".join(sampled)
+            self.log(f"  ⚠ Transcript truncated: {len(transcript_lines)} → {len(sampled)} lines to fit token limit")
+        else:
+            transcript_for_ai = transcript
+
         # Replace placeholders safely (avoid .format() which breaks on user's curly braces)
         prompt = self.system_prompt.replace("{num_clips}", str(request_clips))
         prompt = prompt.replace("{video_context}", video_context)
-        prompt = prompt.replace("{transcript}", transcript)
-        
+        prompt = prompt.replace("{transcript}", transcript_for_ai)
+
         # Warn if required placeholders are missing
         if "{transcript}" in self.system_prompt and "{transcript}" in prompt:
             self.log("  ⚠ Warning: {transcript} placeholder not replaced - check your system prompt")
         if "{num_clips}" in self.system_prompt and "{num_clips}" in prompt:
             self.log("  ⚠ Warning: {num_clips} placeholder not replaced - check your system prompt")
 
-        # Use OpenAI-compatible API for all providers
+        # Use OpenAI-compatible API for all providers.
+        # Weaker/cheaper models often return clips outside the 58-120s window, so
+        # we retry a few times and accumulate unique valid clips until we have
+        # enough (or run out of attempts). Clips shorter than 58s are auto-extended
+        # to ~75s using the surrounding transcript context.
         self.log(f"  Using API: {self.highlight_client.base_url}")
-        try:
-            response = self.highlight_client.chat.completions.create(
-                model=self.model,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=self.temperature,
-            )
-            
-            # Validate response structure
-            if not response:
-                raise Exception("API returned empty response")
-            
-            if not hasattr(response, 'choices') or not response.choices:
-                # Log response structure for debugging
-                self.log(f"  ⚠ Unexpected API response structure: {type(response)}")
-                self.log(f"  Response attributes: {dir(response)}")
-                raise Exception(
-                    "API response missing 'choices' field.\n\n"
-                    "This usually happens with custom API providers that don't follow OpenAI format.\n\n"
-                    "Please check:\n"
-                    "1. API key is valid and has credits\n"
-                    "2. Base URL is correct for your provider\n"
-                    "3. Model name is supported by your provider\n"
-                    "4. Provider follows OpenAI-compatible API format"
+
+        transcript_end = self._extract_transcript_end(transcript)
+        self.log(f"  Transcript end: {transcript_end:.0f}s")
+
+        max_attempts = 3
+        all_valid = []
+        seen_starts = set()
+
+        for attempt in range(1, max_attempts + 1):
+            if attempt > 1:
+                self.log(f"  ↻ Retry {attempt - 1}/{max_attempts - 1}: {len(all_valid)}/{num_clips} valid clips so far...")
+
+            try:
+                response = self.highlight_client.chat.completions.create(
+                    model=self.model,
+                    messages=[{"role": "user", "content": prompt}],
+                    # Nudge variety on retries so we don't get the same too-short clips
+                    temperature=min(self.temperature + 0.2 * (attempt - 1), 1.5),
                 )
-            
-            if not response.choices[0].message or not response.choices[0].message.content:
+
+                if not response:
+                    raise Exception("API returned empty response")
+
+                if not hasattr(response, 'choices') or not response.choices:
+                    self.log(f"  ⚠ Unexpected API response structure: {type(response)}")
+                    raise Exception(
+                        "API response missing 'choices' field.\n\n"
+                        "This usually happens with custom API providers that don't follow OpenAI format.\n\n"
+                        "Please check:\n"
+                        "1. API key is valid and has credits\n"
+                        "2. Base URL is correct for your provider\n"
+                        "3. Model name is supported by your provider\n"
+                        "4. Provider follows OpenAI-compatible API format"
+                    )
+
+                if not response.choices[0].message or not response.choices[0].message.content:
+                    raise Exception(
+                        "API returned empty content.\n\n"
+                        "Possible causes:\n"
+                        "1. Model refused to generate content (content filter)\n"
+                        "2. API quota exceeded\n"
+                        "3. Model doesn't support this type of request"
+                    )
+
+                if hasattr(response, 'usage') and response.usage:
+                    self.report_tokens(response.usage.prompt_tokens, response.usage.completion_tokens, 0, 0)
+
+                result = response.choices[0].message.content.strip()
+
+            except Exception as e:
+                # Rate-limit errors won't clear within seconds — fail fast with a useful tip.
+                if "rate_limit" in str(e).lower() or "429" in str(e):
+                    self.log(f"  ❌ Rate limit hit: {e}")
+                    raise Exception(
+                        f"Failed to get highlights from AI model.\n\n"
+                        f"Error: {str(e)}\n\n"
+                        f"Tip: this video's transcript is large. Use a model with a higher "
+                        f"rate limit (e.g. gpt-4o-mini) or a shorter video."
+                    )
+                self.log(f"  ❌ API error (attempt {attempt}/{max_attempts}): {e}")
+                if attempt < max_attempts:
+                    continue
                 raise Exception(
-                    "API returned empty content.\n\n"
-                    "Possible causes:\n"
-                    "1. Model refused to generate content (content filter)\n"
-                    "2. API quota exceeded\n"
-                    "3. Model doesn't support this type of request"
+                    f"Failed to get highlights from AI model.\n\n"
+                    f"Error: {str(e)}\n\n"
+                    f"Please check:\n"
+                    f"1. API key is valid: {self.highlight_client.api_key[:20]}...\n"
+                    f"2. Base URL is correct: {self.highlight_client.base_url}\n"
+                    f"3. Model exists: {self.model}\n"
+                    f"4. You have sufficient credits/quota"
                 )
-            
-            # Report token usage (input and output separately)
-            if hasattr(response, 'usage') and response.usage:
-                self.report_tokens(response.usage.prompt_tokens, response.usage.completion_tokens, 0, 0)
-            
-            result = response.choices[0].message.content.strip()
-            
-        except Exception as e:
-            # Check if it's our custom exception
-            if "API response missing" in str(e) or "API returned empty" in str(e):
-                raise
-            
-            # Otherwise, wrap with more context
-            self.log(f"  ❌ API Error: {e}")
-            raise Exception(
-                f"Failed to get highlights from AI model.\n\n"
-                f"Error: {str(e)}\n\n"
-                f"Please check:\n"
-                f"1. API key is valid: {self.highlight_client.api_key[:20]}...\n"
-                f"2. Base URL is correct: {self.highlight_client.base_url}\n"
-                f"3. Model exists: {self.model}\n"
-                f"4. You have sufficient credits/quota"
-            )
-        
-        # Log raw response for debugging
-        self.log(f"  Raw AI response (first 500 chars):\n{result[:500]}")
-        
-        if result.startswith("```"):
-            result = re.sub(r"```json?\n?", "", result)
-            result = re.sub(r"```\n?", "", result)
-        
-        try:
-            highlights = json.loads(result)
-        except json.JSONDecodeError as e:
-            # Log full response on error
-            self.log(f"\n❌ JSON Parse Error: {e}")
-            self.log(f"\n📄 Full GPT Response:\n{result}")
-            self.log(f"\n💡 Error position: line {e.lineno}, column {e.colno}")
-            raise Exception(f"Failed to parse GPT response as JSON: {e}\n\nFull response logged above.")
-        
-        # Filter by duration (min 58s, max 120s)
-        valid = []
-        for h in highlights:
-            # Fallback: convert "reason" to "description" if exists
-            if "reason" in h and "description" not in h:
-                h["description"] = h.pop("reason")
-                self.log(f"  ⚠ Converted 'reason' to 'description' for '{h.get('title', 'Unknown')}'")
-            
-            duration = self.parse_timestamp(h["end_time"]) - self.parse_timestamp(h["start_time"])
-            h["duration_seconds"] = round(duration, 1)
-            
-            # Ensure virality_score exists (default to 5 if missing)
-            if "virality_score" not in h:
-                h["virality_score"] = 5
-                self.log(f"  ⚠ Missing virality_score for '{h.get('title', 'Unknown')}', defaulting to 5")
-            
-            # Ensure description exists
-            if "description" not in h:
-                h["description"] = h.get("title", "No description")
-                self.log(f"  ⚠ Missing description for '{h.get('title', 'Unknown')}', using title")
-            
-            if 58 <= duration <= 120:
-                valid.append(h)
-                virality = h.get("virality_score", 5)
-                self.log(f"  ✓ {h['title']} ({duration:.0f}s) [🔥 {virality}/10]")
-            elif duration > 120:
-                self.log(f"  ✗ {h['title']} ({duration:.0f}s) - Too long, skipped")
-            elif duration < 58:
-                self.log(f"  ✗ {h['title']} ({duration:.0f}s) - Too short, skipped")
-            
-            if len(valid) >= num_clips:
+
+            # Log raw response for debugging
+            self.log(f"  Raw AI response (first 500 chars):\n{result[:500]}")
+
+            if result.startswith("```"):
+                result = re.sub(r"```json?\n?", "", result)
+                result = re.sub(r"```\n?", "", result)
+
+            try:
+                highlights = json.loads(result)
+            except json.JSONDecodeError as e:
+                self.log(f"\n❌ JSON Parse Error: {e}")
+                self.log(f"\n📄 Full GPT Response:\n{result}")
+                if attempt < max_attempts:
+                    self.log("  ⚠ Could not parse JSON; retrying...")
+                    continue
+                raise Exception(f"Failed to parse GPT response as JSON: {e}\n\nFull response logged above.")
+
+            # Collect, auto-extend, and deduplicate clips
+            TARGET_DURATION = 75.0
+            MAX_DURATION = 120.0
+            MIN_ACCEPT = 5.0  # reject only near-empty AI suggestions
+
+            for h in highlights:
+                if "reason" in h and "description" not in h:
+                    h["description"] = h.pop("reason")
+                if "virality_score" not in h:
+                    h["virality_score"] = 5
+                if "description" not in h:
+                    h["description"] = h.get("title", "No description")
+
+                try:
+                    start_s = self.parse_timestamp(h["start_time"])
+                    end_s = self.parse_timestamp(h["end_time"])
+                    duration = end_s - start_s
+                except Exception:
+                    continue
+
+                if duration > MAX_DURATION:
+                    self.log(f"  ✗ {h.get('title', 'Clip')} ({duration:.0f}s) - Too long, skipped")
+                    continue
+                if duration < MIN_ACCEPT:
+                    self.log(f"  ✗ {h.get('title', 'Clip')} ({duration:.0f}s) - Too short, skipped")
+                    continue
+
+                # Auto-extend clips shorter than 58s to reach ~75s
+                if duration < 58.0:
+                    orig_duration = duration
+                    needed = TARGET_DURATION - duration
+                    # Stretch end_time first, staying ≥1s before transcript end
+                    new_end = min(end_s + needed, transcript_end - 1.0)
+                    new_dur = new_end - start_s
+                    # If still short, also pull start_time back
+                    if new_dur < 58.0:
+                        start_s = max(0.0, start_s - (58.0 - new_dur))
+                        new_dur = new_end - start_s
+                    h["start_time"] = self._format_timestamp(start_s)
+                    h["end_time"] = self._format_timestamp(new_end)
+                    duration = new_dur
+                    self.log(f"  ↔ Extended '{h.get('title', 'Clip')}': {orig_duration:.0f}s → {duration:.0f}s")
+
+                h["duration_seconds"] = round(duration, 1)
+                start_key = h.get("start_time")
+                if start_key in seen_starts:
+                    continue
+                seen_starts.add(start_key)
+                all_valid.append(h)
+                self.log(f"  ✓ {h.get('title', 'Clip')} ({duration:.0f}s) [🔥 {h.get('virality_score', 5)}/10]")
+
+            if len(all_valid) >= num_clips:
                 break
-        
-        # If we don't have enough valid clips, warn user
-        if len(valid) < num_clips:
-            self.log(f"\n⚠️ WARNING: Only found {len(valid)} valid clips out of {num_clips} requested!")
-            self.log(f"   AI returned many segments that were too short (< 58s).")
-            self.log(f"   Consider using a better AI model or adjusting the prompt.")
-        
-        return valid[:num_clips]
+
+        if not all_valid:
+            return []
+
+        # Keep the best clips by virality, then return them in chronological order
+        all_valid.sort(key=lambda h: h.get("virality_score", 5), reverse=True)
+        selected = all_valid[:num_clips]
+        selected.sort(key=lambda h: self.parse_timestamp(h["start_time"]))
+
+        if len(selected) < num_clips:
+            self.log(f"\n⚠️ WARNING: Only found {len(selected)} valid clips out of {num_clips} requested after {max_attempts} attempts.")
+
+        return selected
     
     def process_clip(self, video_path: str, highlight: dict, index: int, total_clips: int = 1, add_captions: bool = True, add_hook: bool = True, pre_cut: bool = False):
         """Process a single clip: cut, portrait, hook (optional), captions (optional)
@@ -3578,7 +3637,24 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         ts = ts.replace(",", ".")
         parts = ts.split(":")
         return int(parts[0]) * 3600 + int(parts[1]) * 60 + float(parts[2])
-    
+
+    def _format_timestamp(self, seconds: float) -> str:
+        """Format seconds as HH:MM:SS,mmm (SRT/highlight timestamp)"""
+        h = int(seconds // 3600)
+        m = int((seconds % 3600) // 60)
+        s = seconds % 60
+        return f"{h:02d}:{m:02d}:{s:06.3f}".replace(".", ",")
+
+    def _extract_transcript_end(self, transcript: str) -> float:
+        """Get last end timestamp (seconds) from parsed transcript string"""
+        matches = re.findall(r"\[[\d:,]+ - ([\d:,]+)\]", transcript)
+        if not matches:
+            return float("inf")
+        try:
+            return self.parse_timestamp(matches[-1])
+        except Exception:
+            return float("inf")
+
     def cleanup(self):
         """Clean up temp files"""
         import shutil
